@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { View } from "react-native";
+import { Box, FlatList, Heading, Avatar, HStack, VStack, Text, Spacer, Center, NativeBaseProvider } from "native-base";
+import AnimalListItem from "./src/components/AnimalListItem";
+import Animals from "./src/utils/Animals.json";
 
-export default function App() {
+const Example = () => {
+  return <View>
+    <Heading fontSize="xl" p="4" pb="3">
+      <Center>Animals</Center>
+    </Heading>
+    <FlatList data={Animals} renderItem={({ item }) =>
+    <AnimalListItem animal={item}/>
+   } keyExtractor={item => item.id} />
+  </View>;
+};
+
+export default () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeBaseProvider>
+      <Center flex={1} px="3">
+        <Example />
+      </Center>
+    </NativeBaseProvider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
